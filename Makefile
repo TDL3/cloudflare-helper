@@ -15,7 +15,6 @@ normal: clean cloudflare-helper
 clean:
 	rm -rf $(BUILD_DIR)
 	rm -f *.zip
-	rm -f *.dat
 
 cloudflare-helper:
 	mkdir -p $(BUILD_DIR)
@@ -34,16 +33,16 @@ install:
 uninstall:
 	rm /usr/lib/systemd/system/$(NAME).service
 	rm /usr/lib/systemd/system/$(NAME)@.service
-		rm /usr/lib/systemd/system/$(NAME).timer
+	rm /usr/lib/systemd/system/$(NAME).timer
 	systemctl daemon-reload
 	rm /usr/bin/$(NAME)
 	rm -rd /etc/$(NAME)
 	rm -rd /usr/share/$(NAME)
 
-%.zip:
+%.zip: %
 	@zip -du $(NAME)-$@ -j $(BUILD_DIR)/$</*
 	@zip -du $(NAME)-$@ example/*
-	@echo "<<< ---- $(NAME)-$@"
+	@echo "<<< ---- $(NAME)-$@ ---- >>>"
 
 release: darwin-amd64.zip darwin-arm64.zip linux-386.zip linux-amd64.zip \
 	linux-arm.zip linux-armv5.zip linux-armv6.zip linux-armv7.zip linux-armv8.zip \
