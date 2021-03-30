@@ -1,0 +1,6 @@
+config.yml
+release
+.vscode
+build
+*.zip
+example
