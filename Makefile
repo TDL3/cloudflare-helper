@@ -10,7 +10,6 @@ GOBUILD = env CGO_ENABLED=0 $(GO_DIR)go build -tags "full" -trimpath -ldflags="-
 
 .PHONY: cloudflare-helper release test
 normal: clean cloudflare-helper
-# all: darwin-amd64 darwin-arm64 linux-386 linux-amd64 linux-arm linux-armv8 linux-armv7 linux-armv6 windows-amd64 windows-386 windows-arm
 
 clean:
 	rm -rf $(BUILD_DIR)
