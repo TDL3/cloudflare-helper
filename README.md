@@ -10,5 +10,5 @@ This is useful if you want host a server from home but your public ip address ch
     cloudflare-helper -config /path/to/config.yml
     ```
 
-### Note:
+### Note
 Since v0.0.2 you can omit `dns_id` field in config file
