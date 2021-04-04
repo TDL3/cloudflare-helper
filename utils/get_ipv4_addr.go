@@ -5,12 +5,12 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/tdl3/cloudflare-helper/consts"
+	"github.com/tdl3/cloudflare-helper/constant"
 )
 
 func GetMyPublicIpV4() (ipv4 string) {
 	var client http.Client
-	resp, err := client.Get(consts.GetIpv4Addr)
+	resp, err := client.Get(constant.GetIpv4Addr)
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -5,12 +5,11 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/tdl3/cloudflare-helper/consts"
 	"github.com/tdl3/cloudflare-helper/models"
 	"github.com/tdl3/cloudflare-helper/utils"
 )
 
-func UpdateDNSRecord(newIp string) (StatusCode int, err error) {
+func UpdateDNSRecord(cfg *models.Config, newIp string) (StatusCode int, err error) {
 	payload := models.DNS{
 		Type:    "A",
 		Name:    "ts.tdl3.com",
@@ -24,12 +23,12 @@ func UpdateDNSRecord(newIp string) (StatusCode int, err error) {
 	if err != nil {
 		panic(err)
 	}
-	url := utils.AssembleUrl(utils.UpdateDns)
+	url := utils.AssembleUrl(*cfg, utils.UpdateDns)
 	request, err := http.NewRequest("PATCH", url, bytes.NewBufferString(string(data)))
 	if err != nil {
 		panic(err)
 	}
-	request.Header.Add("Authorization", consts.BearerToken)
+	request.Header.Add("Authorization", cfg.Cloudflare.BearerToken)
 	request.Header.Add("Content-Type", "application/json")
 	response, err := client.Do(request)
 	if err != nil {

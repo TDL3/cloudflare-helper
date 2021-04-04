@@ -2,15 +2,15 @@ package option
 
 import (
 	"flag"
-	"log"
 
 	"github.com/tdl3/cloudflare-helper/config"
+	"github.com/tdl3/cloudflare-helper/models"
 )
 
-func HandleFlags() {
+func HandleFlags() (cfg models.Config) {
 	var configPath string
 	flag.StringVar(&configPath, "config", "./config.yml", "Config file path")
 	flag.Parse()
-	config.LoadConfig(configPath)
-	log.Print("Using config ", configPath)
+	cfg = config.LoadConfig(configPath)
+	return
 }

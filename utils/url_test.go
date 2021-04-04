@@ -8,8 +8,8 @@ import (
 )
 
 func TestAssembleUrl(t *testing.T) {
-	config.LoadConfig("./config.yml")
-	got := utils.AssembleUrl(utils.UpdateDns)
+	cfg := config.LoadConfig("../config.yml")
+	got := utils.AssembleUrl(cfg, utils.UpdateDns)
 	if got == "" {
 		t.Errorf("AssembleUrl(UpdateDns) = %v;", got)
 	}

@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/tdl3/cloudflare-helper/cloudflare"
-	"github.com/tdl3/cloudflare-helper/consts"
 	"github.com/tdl3/cloudflare-helper/models"
 	"gopkg.in/yaml.v3"
 )
@@ -13,8 +12,8 @@ import (
 func loadFromFile(path string, cfg *models.Config) {
 	if path == "" {
 		path = "./config.yml"
-		log.Print("No config file specified, uing ./config.yml")
 	}
+	log.Println("Using config ", path)
 	f, err := os.Open(path)
 	if err != nil {
 		log.Fatal("Can not find config file")
@@ -32,16 +31,11 @@ func loadFromFile(path string, cfg *models.Config) {
 	}
 }
 
-func LoadConfig(path string) {
-	var cfg models.Config
+func LoadConfig(path string) (cfg models.Config) {
 	loadFromFile(path, &cfg)
-	consts.BearerToken = cfg.Cloudflare.BearerToken
-	consts.ZoneId = cfg.Cloudflare.ZoneId
-	consts.DomainName = cfg.Cloudflare.DomainName
-	if cfg.Cloudflare.DnsId != "" {
-		consts.DnsId = cfg.Cloudflare.DnsId
-	} else {
+	if cfg.Cloudflare.DnsId == "" {
 		log.Println("Dns ID not specified, querying from Cloudflare")
-		cloudflare.GetDNSId()
+		cloudflare.GetDNSId(&cfg)
 	}
+	return
 }
