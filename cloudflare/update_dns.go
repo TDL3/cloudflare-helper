@@ -3,17 +3,12 @@ package cloudflare
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/tdl3/cloudflare-helper/consts"
 	"github.com/tdl3/cloudflare-helper/models"
+	"github.com/tdl3/cloudflare-helper/utils"
 )
-
-func assembleUrl() (url string) {
-	path := fmt.Sprintf("%s/dns_records/%s", consts.ZoneId, consts.DnsId)
-	return consts.CloudflareEndPoint + path
-}
 
 func UpdateDNSRecord(newIp string) (StatusCode int, err error) {
 	payload := models.DNS{
@@ -29,7 +24,8 @@ func UpdateDNSRecord(newIp string) (StatusCode int, err error) {
 	if err != nil {
 		panic(err)
 	}
-	request, err := http.NewRequest("PATCH", assembleUrl(), bytes.NewBufferString(string(data)))
+	url := utils.AssembleUrl(utils.UpdateDns)
+	request, err := http.NewRequest("PATCH", url, bytes.NewBufferString(string(data)))
 	if err != nil {
 		panic(err)
 	}
