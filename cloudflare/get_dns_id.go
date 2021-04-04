@@ -28,7 +28,7 @@ func GetDNSId(cfg *models.Config) (StatusCode int, err error) {
 		return response.StatusCode, err
 	}
 	id := content.Result[0].Id
-	// utils.PrettyJson(id)
+	// utils.PrettyJson(content.Result[0])
 	cfg.Cloudflare.DnsId = id
 	return response.StatusCode, nil
 }
