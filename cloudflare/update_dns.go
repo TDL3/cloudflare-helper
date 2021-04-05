@@ -22,18 +22,18 @@ func UpdateDNSRecord(cfg *models.Config, newIp string) (StatusCode int, err erro
 	client := &http.Client{}
 	data, err := json.Marshal(payload)
 	if err != nil {
-		panic(err)
+		zap.L().Fatal("Can not parse json", zap.Error(err))
 	}
 	url := utils.AssembleUrl(*cfg, utils.UpdateDns)
 	request, err := http.NewRequest("PATCH", url, bytes.NewBufferString(string(data)))
 	if err != nil {
-		panic(err)
+		zap.L().Fatal("Something went wrong", zap.Error(err))
 	}
 	request.Header.Add("Authorization", cfg.Cloudflare.BearerToken)
 	request.Header.Add("Content-Type", "application/json")
 	response, err := client.Do(request)
 	if err != nil {
-		panic(err)
+		zap.L().Fatal("Can not connect to internet", zap.Error(err))
 	}
 	defer response.Body.Close()
 	var content interface{}

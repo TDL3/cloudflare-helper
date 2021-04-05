@@ -14,7 +14,7 @@ func main() {
 	zap.L().Sugar().Info("Public IPv4 Address is ", myIp)
 	code, err := cloudflare.UpdateDNSRecord(&cfg, myIp)
 	if code != 200 && err != nil {
-		zap.L().Fatal("Something Went Wrong, DNS Record Not Updated")
+		zap.L().Fatal("Something Went Wrong, DNS Record Not Updated", zap.Error(err))
 	}
 	zap.L().Sugar().Info(cfg.Cloudflare.DomainName, " DNS Record Updated to ", myIp)
 }

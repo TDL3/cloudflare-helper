@@ -15,12 +15,12 @@ func GetDNSId(cfg *models.Config) (StatusCode int, err error) {
 	client := &http.Client{}
 	request, err := http.NewRequest("GET", utils.AssembleUrl(*cfg, utils.GetDnsId), nil)
 	if err != nil {
-		panic(err)
+		zap.L().Fatal("Something went wrong", zap.Error(err))
 	}
 	request.Header.Add("Authorization", cfg.Cloudflare.BearerToken)
 	response, err := client.Do(request)
 	if err != nil {
-		panic(err)
+		zap.L().Fatal("Can not connect to internet", zap.Error(err))
 	}
 	defer response.Body.Close()
 	var content resp.DNSId

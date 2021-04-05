@@ -23,7 +23,7 @@ func loadFromFile(path string, cfg *models.Config) {
 	decoder.KnownFields(true)
 	err = decoder.Decode(cfg)
 	if err != nil {
-		log.Fatal("invalid options", err)
+		log.Fatal("Invalid options", err)
 	}
 }
 
