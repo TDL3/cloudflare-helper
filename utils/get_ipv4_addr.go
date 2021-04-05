@@ -13,7 +13,7 @@ func GetMyPublicIpV4() (ipv4 string) {
 	var client http.Client
 	resp, err := client.Get(constant.GetIpv4Addr)
 	if err != nil {
-		zap.L().Fatal("Can not connect to internet", zap.Error(err))
+		zap.L().Fatal("Con not resolve host", zap.Error(err))
 	}
 	defer resp.Body.Close()
 

@@ -10,7 +10,7 @@ import (
 	"go.uber.org/zap"
 )
 
-func UpdateDNSRecord(cfg *models.Config, newIp string) (StatusCode int, err error) {
+func UpdateDNSRecord(cfg *models.Config, newIp string) (StatusCode int) {
 	payload := models.DNS{
 		Type:    "A",
 		Name:    "ts.tdl3.com",
@@ -33,15 +33,15 @@ func UpdateDNSRecord(cfg *models.Config, newIp string) (StatusCode int, err erro
 	request.Header.Add("Content-Type", "application/json")
 	response, err := client.Do(request)
 	if err != nil {
-		zap.L().Fatal("Can not connect to internet", zap.Error(err))
+		zap.L().Fatal("Con not resolve host", zap.Error(err))
 	}
 	defer response.Body.Close()
 	var content interface{}
 	err = json.NewDecoder(response.Body).Decode(&content)
 	if err != nil {
-		return response.StatusCode, err
+		zap.L().Info("Can not parse response", zap.Error(err))
 	}
 	zap.L().Debug(utils.PrettyJson(content))
 
-	return response.StatusCode, nil
+	return response.StatusCode
 }
