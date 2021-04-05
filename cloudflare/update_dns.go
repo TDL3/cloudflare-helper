@@ -13,7 +13,7 @@ import (
 func UpdateDNSRecord(cfg *models.Config, newIp string) (StatusCode int) {
 	payload := models.DNS{
 		Type:    "A",
-		Name:    "ts.tdl3.com",
+		Name:    cfg.Cloudflare.DomainName,
 		Content: newIp,
 		TTL:     1,
 		Proxied: false,
@@ -33,7 +33,7 @@ func UpdateDNSRecord(cfg *models.Config, newIp string) (StatusCode int) {
 	request.Header.Add("Content-Type", "application/json")
 	response, err := client.Do(request)
 	if err != nil {
-		zap.L().Fatal("Con not resolve host", zap.Error(err))
+		zap.L().Fatal("Can not resolve host", zap.Error(err))
 	}
 	defer response.Body.Close()
 	var content interface{}

@@ -20,7 +20,7 @@ func GetDNSId(cfg *models.Config) (StatusCode int) {
 	request.Header.Add("Authorization", cfg.Cloudflare.BearerToken)
 	response, err := client.Do(request)
 	if err != nil {
-		zap.L().Fatal("Con not resolve host", zap.Error(err))
+		zap.L().Fatal("Can not resolve host", zap.Error(err))
 	}
 	defer response.Body.Close()
 	var content resp.DNSId
@@ -28,8 +28,7 @@ func GetDNSId(cfg *models.Config) (StatusCode int) {
 	if err != nil {
 		zap.L().Info("Can not parse response", zap.Error(err))
 	}
-	id := content.Result[0].Id
-	zap.L().Debug(utils.PrettyJson(content.Result[0]))
-	cfg.Cloudflare.DnsId = id
+	zap.L().Debug(utils.PrettyJson(content))
+	cfg.Cloudflare.DnsId = content.Result[0].Id
 	return response.StatusCode
 }
