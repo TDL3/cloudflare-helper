@@ -4,7 +4,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/tdl3/cloudflare-helper/cloudflare"
 	"github.com/tdl3/cloudflare-helper/models"
 	"gopkg.in/yaml.v3"
 )
@@ -13,11 +12,9 @@ func loadFromFile(path string, cfg *models.Config) {
 	if path == "" {
 		path = "./config.yml"
 	}
-	log.Println("Using config ", path)
 	f, err := os.Open(path)
 	if err != nil {
-		log.Fatal("Can not find config file")
-		panic(err)
+		log.Fatal("Can not find config file", err)
 	}
 	defer f.Close()
 	var data []byte
@@ -26,16 +23,11 @@ func loadFromFile(path string, cfg *models.Config) {
 	decoder.KnownFields(true)
 	err = decoder.Decode(cfg)
 	if err != nil {
-		log.Fatal("invalid options")
-		panic(err)
+		log.Fatal("invalid options", err)
 	}
 }
 
 func LoadConfig(path string) (cfg models.Config) {
 	loadFromFile(path, &cfg)
-	if cfg.Cloudflare.DnsId == "" {
-		log.Println("Dns ID not specified, querying from Cloudflare")
-		cloudflare.GetDNSId(&cfg)
-	}
 	return
 }

@@ -2,14 +2,15 @@ package utils
 
 import (
 	"encoding/json"
-	"log"
+
+	"go.uber.org/zap"
 )
 
-func PrettyJson(v interface{}) {
+func PrettyJson(v interface{}) (pretty string) {
 	jsonData, err := json.MarshalIndent(v, "", "\t")
 	if err != nil {
-		log.Print("JSON Parsing error", err)
+		zap.L().Warn("JSON Parsing error", zap.Error(err))
 		return
 	}
-	log.Print(string(jsonData))
+	return string(jsonData)
 }

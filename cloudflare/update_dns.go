@@ -7,6 +7,7 @@ import (
 
 	"github.com/tdl3/cloudflare-helper/models"
 	"github.com/tdl3/cloudflare-helper/utils"
+	"go.uber.org/zap"
 )
 
 func UpdateDNSRecord(cfg *models.Config, newIp string) (StatusCode int, err error) {
@@ -40,7 +41,7 @@ func UpdateDNSRecord(cfg *models.Config, newIp string) (StatusCode int, err erro
 	if err != nil {
 		return response.StatusCode, err
 	}
-	// utils.PrettyJson(content)
+	zap.L().Debug(utils.PrettyJson(content))
 
 	return response.StatusCode, nil
 }

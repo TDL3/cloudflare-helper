@@ -7,6 +7,7 @@ import (
 	"github.com/tdl3/cloudflare-helper/models"
 	"github.com/tdl3/cloudflare-helper/models/resp"
 	"github.com/tdl3/cloudflare-helper/utils"
+	"go.uber.org/zap"
 )
 
 // This will get the dns_id from cloudflare, and store it in the cfg
@@ -28,7 +29,7 @@ func GetDNSId(cfg *models.Config) (StatusCode int, err error) {
 		return response.StatusCode, err
 	}
 	id := content.Result[0].Id
-	// utils.PrettyJson(content.Result[0])
+	zap.L().Debug(utils.PrettyJson(content.Result[0]))
 	cfg.Cloudflare.DnsId = id
 	return response.StatusCode, nil
 }
