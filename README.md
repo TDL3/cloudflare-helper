@@ -1,4 +1,4 @@
-# Cloudflare helper
+# Cloudflare-Helper
 This tool helps you to update DNS record on cloudflare  
 This is useful if you want host a server from home but your public ip address changes from time to time (aka. Dynamic IP address)
 
