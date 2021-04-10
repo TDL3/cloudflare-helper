@@ -5,12 +5,12 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/tdl3/cloudflare-helper/constant"
+	"github.com/tdl3/cloudflare-helper/models"
 	"go.uber.org/zap"
 )
 
-func GetMyPublicIpV4() (ipv4 string) {
-	providers := constant.GetIpv4Addr
+func GetMyPublicIpV4(cfg models.Config) (ipv4 string) {
+	providers := cfg.Provider.Ip
 	for _, v := range providers {
 		code := getIpv4(v, &ipv4)
 		if code == http.StatusOK {

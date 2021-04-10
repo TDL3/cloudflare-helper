@@ -13,5 +13,8 @@ type (
 			Level    string `yaml:"level"`
 			Encoding string `yaml:"encoding"`
 		} `yaml:"log"`
+		Provider struct {
+			Ip []string `yaml:"ip"`
+		} `yaml:"provider"`
 	}
 )

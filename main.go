@@ -9,7 +9,7 @@ import (
 
 func main() {
 	cfg := option.HandleFlags()
-	myIp := utils.GetMyPublicIpV4()
+	myIp := utils.GetMyPublicIpV4(cfg)
 	defer zap.L().Sync()
 	zap.L().Sugar().Info("Public IPv4 Address is ", myIp)
 	code := cloudflare.UpdateDNSRecord(&cfg, myIp)
