@@ -9,12 +9,12 @@ This is useful if you want host a server from home but your public ip address ch
 4.  ```bash
     cloudflare-helper -config /path/to/config.yml
     ```
-- Use docker
-```bash
-docker run \
-    -v /path/to/config.yml:/etc/cfh/config.yml \
-    tdl3/cloudflare-helper
-```
+    - Alternatively you can use docker  
+        ```bash
+        docker run \
+            -v /path/to/config.yml:/etc/cfh/config.yml \
+            tdl3/cloudflare-helper
+        ```
 ### Note
 - You can find zone id on you cloudflare overview page
 - Since v0.0.2 you can omit `dns_id` field in config file
