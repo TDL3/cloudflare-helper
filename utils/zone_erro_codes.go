@@ -1,0 +1,76 @@
+package utils
+
+import "github.com/tdl3/cloudflare-helper/models"
+
+func GetErrMsg(code int64) string {
+	errCodes := []models.ErroCode{
+		{Code: 1000, Message: "Invalid user"},
+		{Code: 1002, Message: "Invalid or missing zone_id"},
+		{Code: 1003, Message: "per_page must be a positive integer"},
+		{Code: 1004, Message: "Invalid or missing zone"},
+		{Code: 1005, Message: "Invalid or missing record"},
+		{Code: 1007, Message: "name required"},
+		{Code: 1008, Message: "content required"},
+		{Code: 1009, Message: "Invalid or missing record id"},
+		{Code: 1010, Message: "Invalid or missing record"},
+		{Code: 1011, Message: "Zone file for '<domain name>' could not be found"},
+		{Code: 1012, Message: "Zone file for '<domain name>' is not modifiable"},
+		{Code: 1013, Message: "The record could not be found"},
+		{Code: 1014, Message: "You do not have permission to modify this zone"},
+		{Code: 1015, Message: "Unknown error"},
+		{Code: 1017, Message: "Content for A record is invalid. Must be a valid IPv4 address"},
+		{Code: 1018, Message: "Content for AAAA record is invalid. Must be a valid IPv6 address"},
+		{Code: 1019, Message: "Content for CNAME record is invalid"},
+		{Code: 1024, Message: "Invalid priority, priority must be set and be between 0 and 65535"},
+		{Code: 1025, Message: "Invalid content for an MX record"},
+		{Code: 1027, Message: "Invalid service value"},
+		{Code: 1028, Message: "Invalid service value. Must be less than 100 characters"},
+		{Code: 1029, Message: "Invalid protocol value"},
+		{Code: 1030, Message: "Invalid protocol value. Must be less than 12 characters"},
+		{Code: 1031, Message: "Invalid SRV name"},
+		{Code: 1032, Message: "Invalid SRV name. Must be less than 90 characters"},
+		{Code: 1033, Message: "Invalid weight value. Must be between 0 and 65,535"},
+		{Code: 1034, Message: "Invalid port value. Must be between 0 and 65,535"},
+		{Code: 1037, Message: "Invalid domain name for a SRV target host"},
+		{Code: 1038, Message: "Invalid DNS record type"},
+		{Code: 1039, Message: "Invalid TTL. Must be between 120 and 4,294,967,295 seconds, or 1 for automatic"},
+		{Code: 1041, Message: "Priority must be set for SRV record"},
+		{Code: 1042, Message: "Zone file for '<domain name>' could not be found"},
+		{Code: 1043, Message: "Zone file for '<domain name>' is not editable"},
+		{Code: 1044, Message: "A record with these exact values already exists. Please modify or remove this record"},
+		{Code: 1045, Message: "The record could not be found"},
+		{Code: 1046, Message: "A record with these exact values already exists. Please modify or cancel this edit"},
+		{Code: 1047, Message: "You do not have permission to modify this zone"},
+		{Code: 1048, Message: "You have reached the record limit for this zone"},
+		{Code: 1049, Message: "The record content is missing"},
+		{Code: 1050, Message: "Could not find record"},
+		{Code: 1052, Message: "You can not point a CNAME to itself"},
+		{Code: 1053, Message: "Invalid lat_degrees, must be an integer between 0 and 90 inclusive"},
+		{Code: 1054, Message: "Invalid lat_minutes, must be an integer between 0 and 59 inclusive"},
+		{Code: 1055, Message: "Invalid lat_seconds, must be a floating point number between 0 and 60, including 0 but not including 60"},
+		{Code: 1056, Message: "Invalid or missing lat_direction. Values must be N or S"},
+		{Code: 1057, Message: "Invalid long_degrees, must be an integer between 0 and 180"},
+		{Code: 1058, Message: "Invalid long_minutes, must be an integer between 0 and 59"},
+		{Code: 1059, Message: "Invalid long_seconds, must be a floating point number between 0 and 60, including 0 but not including 60"},
+		{Code: 1060, Message: "Invalid or missing long_direction. Values must be E or S"},
+		{Code: 1061, Message: "Invalid altitude, must be a floating point number between -100000.00 and 42849672.95"},
+		{Code: 1062, Message: "Invalid size, must be a floating point number between 0 and 90000000.00"},
+		{Code: 1063, Message: "Invalid precision_horz, must be a floating point number between 0 and 90000000.00"},
+		{Code: 1064, Message: "Invalid precision_vert, must be a floating point number between 0 and 90000000.00"},
+		{Code: 1065, Message: "Invalid or missing data for <type> record"},
+		{Code: 1067, Message: "Invalid content for a NS record"},
+		{Code: 1068, Message: "Target cannot be an IP address"},
+		{Code: 1069, Message: "CNAME content cannot reference itself"},
+		{Code: 1070, Message: "CNAME content cannot be an IP"},
+		{Code: 1071, Message: "Invalid proxied mode. Record cannot be proxied"},
+		{Code: 1072, Message: "Invalid record identifier"},
+		{Code: 1073, Message: "Invalid TXT record. Must be less than 255 characters"},
+		{Code: 1074, Message: "Invalid TXT record. Record may only contain printable ASCII!"},
+	}
+	for _, err := range errCodes {
+		if err.Code == code {
+			return err.Message
+		}
+	}
+	return "Unkown Error"
+}
