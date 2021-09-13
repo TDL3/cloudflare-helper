@@ -10,6 +10,8 @@ import (
 	"go.uber.org/zap"
 )
 
+// TODO: Test this function
+
 func CreateDNSRecord(cfg *models.Config, payload models.DNS) (StatusCode int) {
 	client := &http.Client{}
 	data, err := json.Marshal(payload)
