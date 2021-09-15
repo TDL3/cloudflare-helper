@@ -11,7 +11,13 @@ import (
 )
 
 // This will get the dns_id from cloudflare, and store it in the cfg
-func GetDNSId(cfg *models.Config) (StatusCode int) {
+func GetDnsId(cfg *models.Config) (statusCode int) {
+	dnsID, statusCode := getDnsId(cfg)
+	upDateCfg(cfg, dnsID)
+	return
+}
+
+func getDnsId(cfg *models.Config) (id string, statusCode int) {
 	client := &http.Client{}
 	request, err := http.NewRequest("GET", utils.AssembleUrl(*cfg, utils.GetDnsId), nil)
 	if err != nil {
@@ -29,6 +35,10 @@ func GetDNSId(cfg *models.Config) (StatusCode int) {
 		zap.L().Info("Can not parse response", zap.Error(err))
 	}
 	zap.L().Debug(utils.PrettyJson(content))
-	cfg.Cloudflare.DnsId = content.Result[0].Id
-	return response.StatusCode
+	id = content.Result[0].Id
+	return
+}
+
+func upDateCfg(cfg *models.Config, dnsID string) {
+	cfg.Cloudflare.DnsId = dnsID
 }

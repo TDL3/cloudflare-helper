@@ -20,7 +20,7 @@ func HandleFlags() (cfg models.Config) {
 	zap.L().Sugar().Info("Using config ", configPath)
 	if cfg.Cloudflare.DnsId == "" {
 		zap.L().Info("DNS ID not specified, querying from Cloudflare")
-		cloudflare.GetDNSId(&cfg)
+		cloudflare.GetDnsId(&cfg)
 	}
 	return
 }

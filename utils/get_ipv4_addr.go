@@ -10,7 +10,7 @@ import (
 )
 
 func GetMyPublicIpV4(cfg models.Config) (ipv4 string) {
-	providers := cfg.Provider.Ip
+	providers := cfg.Provider.Ipv4
 	for _, v := range providers {
 		code := getIpv4(v, &ipv4)
 		if code == http.StatusOK {
